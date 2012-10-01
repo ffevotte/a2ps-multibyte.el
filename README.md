@@ -1,4 +1,4 @@
-# a2ps-multibyte
+# `a2ps-multibyte`
 
 This package allows printing Emacs buffers using `a2ps`, even when they use an UTF-8
 charset or another multibyte character coding system (such encodings are otherwise not
@@ -11,13 +11,17 @@ characters).
 
 ## Installation
 
-    (add-to-list 'load-path "/path/to/a2ps-multibyte)
-    (require 'a2ps-multibyte)
+```elisp
+(add-to-list 'load-path "/path/to/a2ps-multibyte-package")
+(require 'a2ps-multibyte)
+```
     
 You can optionally bind the `a2ps` commands to keys:
 
-    (global-set-key (kbd "<print>")   'a2ps-buffer)
-    (global-set-key (kbd "S-<print>") 'a2ps-region)
+```elisp
+(global-set-key (kbd "<print>")   'a2ps-buffer)
+(global-set-key (kbd "S-<print>") 'a2ps-region)
+```
 
 
 ## Basic usage
@@ -39,7 +43,9 @@ The relevant variables are:
 - `a2ps-command`: path to the `a2ps` utility.
 - `a2ps-switches`: list of additional command-line switches, e.g.
 
-       (setq a2ps-switches '("-l" "100"))
+   ```elisp
+   (setq a2ps-switches '("-l" "100"))
+   ```
 
 
 ## License
