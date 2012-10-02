@@ -32,11 +32,28 @@
 
 ;;; Code:
 
-(defvar a2ps-switches nil
-  "List of extra command-line switches for a2ps when it is invoked.")
+;;;###autoload
+(defgroup a2ps nil
+  "Pretty-printing buffers using a2ps."
+  :group 'external)
 
-(defvar a2ps-command "a2ps"
-  "Path to the a2ps command")
+;;;###autoload
+(defcustom a2ps-switches nil
+  "List of extra command-line switches for a2ps when it is invoked."
+  :group 'a2ps
+  :type '(repeat string))
+
+;;;###autoload
+(defcustom a2ps-command "a2ps"
+  "Path to the a2ps command."
+  :group 'a2ps
+  :type 'string)
+
+;;;###autoload
+(defcustom a2ps-encoding 'iso-8859-15-unix
+  "Encoding charset to use for a2ps."
+  :group 'a2ps
+  :type 'coding-system)
 
 ;;;###autoload
 (defun a2ps-buffer (argp)
@@ -71,8 +88,16 @@ With a prefix argument, interactively ask for extra switches."
       (setq switches (append switches (split-string (read-string "switches: ")))))
     (find-file filename)
     (insert-buffer-substring buffer start end)
-    (setq buffer-file-coding-system 'iso-latin-9-unix)
+
+    ;; Try hard to make emacs use the specified encoding
+    ;;
+    ;;   The `auto-coding-alist' variable takes priority over everything else, including 'coding:'
+    ;;   tags in the file.
+    (set (make-local-variable 'auto-coding-alist)
+         (list (cons ".*" a2ps-encoding)))
     (save-buffer)
+
+    ;; Actually call a2ps
     (apply 'call-process
            (nconc (list "env" nil "*a2ps*" nil "LANG=C" a2ps-command
                         (concat "--center-title=" doc-name)
