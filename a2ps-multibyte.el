@@ -1,6 +1,6 @@
 ;;; a2ps-multibyte --- print buffers with a2ps even when they are encoded in utf-8
 
-;; Copyright (C) 2012 François Févotte
+;; Copyright (C) 2012-2014 François Févotte
 
 ;; Large parts of this file come from a2ps-print.el in the a2ps package
 ;;   (http://www.gnu.org/software/a2ps/)
@@ -88,6 +88,7 @@ With a prefix argument, interactively ask for extra switches."
       (setq switches (append switches (split-string (read-string "switches: ")))))
     (find-file filename)
     (insert-buffer-substring buffer start end)
+    (run-hooks 'a2ps-filter-functions)
 
     ;; Try hard to make emacs use the specified encoding
     ;;
