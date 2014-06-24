@@ -79,8 +79,10 @@ With a prefix argument, interactively ask for extra switches."
   (let* ((buffer    (current-buffer))
          (doc-name  (buffer-name))
          (suffix    (if buffer-file-name
-                        (substring buffer-file-name
-                                   (string-match ".[^.]*$" buffer-file-name))
+                        (let ((i (string-match "\\.[^./]*$" buffer-file-name)))
+                          (if i
+                              (substring buffer-file-name i)
+                            ""))
                       ""))
          (filename  (make-temp-file "emacs-a2ps." nil suffix))
          (switches  a2ps-switches))
@@ -96,6 +98,8 @@ With a prefix argument, interactively ask for extra switches."
     ;;   tags in the file.
     (set (make-local-variable 'auto-coding-alist)
          (list (cons ".*" a2ps-encoding)))
+    (set (make-local-variable 'make-backup-files)
+         nil)
     (save-buffer)
 
     ;; Actually call a2ps
