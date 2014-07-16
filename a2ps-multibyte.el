@@ -1,10 +1,14 @@
-;;; a2ps-multibyte --- print buffers with a2ps even when they are encoded in utf-8
+;;; a2ps-multibyte.el --- print buffers with a2ps even when they are encoded in utf-8
 
 ;; Copyright (C) 2012-2014 François Févotte
 
 ;; Large parts of this file come from a2ps-print.el in the a2ps package
 ;;   (http://www.gnu.org/software/a2ps/)
 ;;   (C) Bruce Ingalls
+
+;; Author:  François Févotte <fevotte@gmail.com>
+;; URL:     https://github.com/ffevotte/a2ps-multibyte.el
+;; Version: 0.1
 
 ;; This file is NOT part of Emacs.
 
@@ -25,7 +29,7 @@
 ;;; Commentary:
 
 ;; If you make improvements to this code or have suggestions, please do not
-;; hesitate to fork the repository or submit bug reports on github. The
+;; hesitate to fork the repository or submit bug reports on github.  The
 ;; repository is at:
 ;;
 ;;     https://github.com/ffevotte/a2ps-multibyte.el
@@ -115,4 +119,4 @@ With a prefix argument, interactively ask for extra switches."
 
 (provide 'a2ps-multibyte)
 
-;; a2ps-multibyte.el ends here
+;;; a2ps-multibyte.el ends here
